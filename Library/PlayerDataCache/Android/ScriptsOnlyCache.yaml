@@ -88,8 +88,20 @@ ScriptsOnlyBuild:
     fullTypeName: ButtonManagerScript
     methodName: PlayButton
   - assembly: Assembly-CSharp
+    fullTypeName: ButtonManagerScript
+    methodName: QuitButton
+  - assembly: Assembly-CSharp
+    fullTypeName: GamePlayManager
+    methodName: Quit
+  - assembly: Assembly-CSharp
     fullTypeName: GamePlayManager
     methodName: Restart
+  - assembly: Assembly-CSharp
+    fullTypeName: GamePlayManager
+    methodName: Restart
+  - assembly: Assembly-CSharp
+    fullTypeName: GamePlayManager
+    methodName: MainMenu
   - assembly: Assembly-CSharp
     fullTypeName: GamePlayManager
     methodName: MainMenu
@@ -677,7 +689,7 @@ ScriptsOnlyBuild:
     className: EnvMapAnimator
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 0d5fe23e6398bb856e03566664d86899
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GamePlayManager

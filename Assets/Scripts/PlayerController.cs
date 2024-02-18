@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        GamePlayManager.Instance.GameOverPanel.SetActive(false);
         rigidBody = GetComponent<Rigidbody2D>();
         Application.targetFrameRate = targetFramerate;
         //if (SystemInfo.supportsAccelerometer)
@@ -48,6 +49,14 @@ public class PlayerController : MonoBehaviour
 
         scoreText.text = "Score : " + Mathf.Round(TopScore).ToString();
 
+        // Check if player's velocity is less than -10
+        if (rigidBody.velocity.y < -20f)
+        {
+            // Trigger game over
+            Debug.Log("Game Over");
+            GamePlayManager.Instance.GameOverPanel.SetActive(true);
+        }
+
         float Score = Mathf.Round(TopScore);
         PlayerPrefs.SetFloat("TopScore", Score);
         PlayerPrefs.Save();
@@ -55,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        float sensitivity = 4f;
+        float sensitivity = 2f;
 
         if (SystemInfo.supportsAccelerometer)
         {
