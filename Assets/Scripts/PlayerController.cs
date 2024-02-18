@@ -14,18 +14,18 @@ public class PlayerController : MonoBehaviour
 
     readonly int targetFramerate = 120;
 
-    private float gyroInputSmoothed;
+    private float accelerometerInputSmoothed;
     public float smoothingFactor = 0.1f;
 
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         Application.targetFrameRate = targetFramerate;
-        if (SystemInfo.supportsGyroscope)
-        {
-            // Enable the gyroscope only on Android
-            Input.gyro.enabled = true;
-        }
+        //if (SystemInfo.supportsAccelerometer)
+        //{
+        //    // Enable the gyroscope only on Android
+        //    Input.supportsAccelerometer.enabled = true;
+        //}
 
     }
 
@@ -55,24 +55,22 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        float sensitivity = 2.5f;
+        float sensitivity = 4f;
 
-        if (SystemInfo.supportsGyroscope)
+        if (SystemInfo.supportsAccelerometer)
         {
-            // Smooth the gyroscope input
-            gyroInputSmoothed = Mathf.Lerp(gyroInputSmoothed, -Input.gyro.rotationRateUnbiased.x, smoothingFactor);
+            // Smooth the accelerometer input
+            accelerometerInputSmoothed = Mathf.Lerp(accelerometerInputSmoothed, Input.acceleration.x, smoothingFactor);
 
-            // Apply the smoothed and scaled gyroscope input to the player's velocity
-            rigidBody.velocity = new Vector2(gyroInputSmoothed * speed * sensitivity, rigidBody.velocity.y);
+            // Apply the smoothed and scaled accelerometer input to the player's velocity
+            rigidBody.velocity = new Vector2(accelerometerInputSmoothed * speed * sensitivity, rigidBody.velocity.y);
         }
+
         else
         {
             //// For other platforms (including Unity Editor), use the previous input method (e.g., keyboard or touch)
             float moveInput = Input.GetAxis("Horizontal");
             rigidBody.velocity = new Vector2(moveInput * speed, rigidBody.velocity.y);
         }
-
-
-
     }
 }
